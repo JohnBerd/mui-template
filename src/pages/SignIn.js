@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import { Card, CardContent } from '@material-ui/core';
 import BackgroundImage from '../components/BackgroundImage';
 import { Link as RouterLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,6 +39,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const { register, handleSubmit, watch, errors } = useForm()
+  const onSubmit = data => {
+    alert(JSON.stringify(data))
+  }
+  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   return (
     <div>
@@ -52,7 +58,7 @@ export default function SignIn() {
               <Typography component="h1" variant="h5" style={{ textAlign: 'center' }}>
                 Sign in
             </Typography>
-              <form className={classes.form} noValidate>
+              <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -63,6 +69,18 @@ export default function SignIn() {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  inputRef={register({
+                    required: {
+                      value: true,
+                      message: "This field is required"
+                    },
+                    pattern: {
+                      value: re,
+                      message: "Bad email"
+                    },
+                  })}
+                  error={errors.email}
+                  helperText={errors.email ? errors.email.message : ''}
                 />
                 <TextField
                   variant="outlined"
@@ -74,6 +92,14 @@ export default function SignIn() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  error={errors.password}
+                    inputRef={register({
+                      required: {
+                        value: true,
+                        message: "This field is required"
+                      },
+                    })}
+                    helperText={errors.password ? errors.password.message : ''}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
