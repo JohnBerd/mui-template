@@ -4,6 +4,7 @@ import Routes from "../Routes";
 
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     main: {
@@ -17,9 +18,10 @@ export default function Main() {
     const classes = useStyles();
 
     return (
-
         <main className={classes.main}>
-            <Routes />
+            <Container>
+                <Routes />
+            </Container>
         </main>
     );
 }
