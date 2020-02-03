@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from "@material-ui/icons/Search";
 import Typography from '@material-ui/core/Typography';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ToggleMenu from './ToggleMenu';
-import { Button } from '@material-ui/core';
-import SearchBar from 'material-ui-search-bar';
-import AccountButton from './AccountButton';
-import NotificationButton from './NotificationButton';
+import { Button, IconButton, ClickAwayListener, Box, InputBase } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import menu from "../globals/Menu"
+import { useStore } from 'react-hookstore';
+import SearchBar from 'material-ui-search-bar';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import SearchIcon from "@material-ui/icons/Search";
+import AccountButton from './AccountButton';
+import NotificationButton from './NotificationButton';
+
+
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -54,30 +56,92 @@ const useStyles = makeStyles(theme => ({
   },
   backButton: {
     margin: theme.spacing(1),
-  }
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
+    },
+  },
 }));
-
 
 function SearchNavBar(props) {
   const classes = useStyles();
+
+  const handleClickAway = () => {
+    props.setSearchActive(false);
+  };
+
   return (
-    <Toolbar>
-      <IconButton color="inherit" onClick={() => props.setSearchActive(false)} className={classes.backButton} >
-        <ArrowBackIcon />
-      </IconButton>
-      <SearchField />
-    </Toolbar>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <Toolbar>
+        <IconButton color="inherit" onClick={() => props.setSearchActive(false)} className={classes.backButton} >
+          <ArrowBackIcon />
+        </IconButton>
+        <SearchField />
+      </Toolbar>
+    </ClickAwayListener>
   );
 }
 
 function SearchField() {
   const classes = useStyles();
   return (
-    <SearchBar className={classes.searchField} />
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      <InputBase
+        placeholder="Search…"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ 'aria-label': 'search' }}
+      />
+    </div>
   );
 }
 
-function AuthMenuBar() {
+function AuthMenuBar(props) {
+  const classes = useStyles();
+  const handleClick = () => {
+    // Link to the API
+    props.setAuth(false)
+    localStorage.clear()
+  }
+
   return (
     <div style={{ display: 'flex' }}>
       <NotificationButton />
@@ -90,57 +154,58 @@ function NonAuthMenuBar() {
   const classes = useStyles();
   return (
     <div style={{ display: 'flex' }}>
-        <Button variant="contained" color="secondary" className={classes.signInButton} component={Link} to="/signup">
-          Sign Up
-      </Button>
-        <Button variant="outlined" color="inherit" className={classes.signInButton}  component={Link} to="/signin">
-          Sign In
-      </Button>
+      <Button variant="contained" color="secondary" className={classes.signInButton} component={Link} to="/signup">
+        Sign Up
+  </Button>
+      <Button variant="outlined" color="secondary" className={classes.signInButton} component={Link} to="/signin">
+        Sign In
+  </Button>
     </div>
   )
 }
 
 function BaseNavBar(props) {
   const classes = useStyles();
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useStore('authStore');
 
   return (
     <Toolbar >
       <div className={classes.sectionMobile}>
-        <ToggleMenu side='left' menu={menu} />
+        <ToggleMenu side='left' menu={menu} auth={auth} />
       </div>
       <Typography className={classes.title} variant="h6" noWrap>
-        Material-UI
+        MUI Login Template
     </Typography>
       <div className={classes.sectionDesktop}>
         <div className={classes.menuBar}>
           {menu.map((item) => (
-            <Button color="inherit" component={Link} to={item.route}>{item.title}</Button>
+            ((auth && !item.public) || item.public) && <Button color="inherit" component={Link} to={item.route}>{item.title}</Button>
           ))}
         </div>
       </div>
-      <div className={classes.sectionDesktop}>
+      {props.search && <div className={classes.sectionDesktop}>
         <SearchField />
-      </div>
+      </div>}
       <div className={classes.grow} />
+      {props.search && <IconButton color="inherit" className={classes.sectionMobile} onClick={() => props.setSearchActive(true)}>
+        <SearchIcon />
+      </IconButton>}
       <div className={classes.iconContainer}>
-        <IconButton color="inherit" className={classes.sectionMobile} onClick={() => props.setSearchActive(true)}>
-          <SearchIcon />
-        </IconButton>
-        {auth ? <AuthMenuBar /> : <NonAuthMenuBar />}
+        {auth ? <AuthMenuBar setAuth={setAuth} /> : <NonAuthMenuBar />}
       </div>
     </Toolbar>
   );
 }
 
-export default function NavBar() {
+export default function NavBar(props) {
   const classes = useStyles();
   const [searchActive, setSearchActive] = useState(false)
   return (
     <div>
-      <AppBar position="static">
-        {searchActive ? <SearchNavBar setSearchActive={setSearchActive} /> : <BaseNavBar setSearchActive={setSearchActive} />}
+      <AppBar position={!props.sticky ? "static" : 'fixed'}>
+        {searchActive ? <SearchNavBar setSearchActive={setSearchActive} /> : <BaseNavBar {...props} setSearchActive={setSearchActive} />}
       </AppBar>
+      {props.sticky && <Box height="64px"></Box>}
     </div>
   );
 }

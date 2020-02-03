@@ -6,10 +6,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Divider } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Link, useHistory } from 'react-router-dom'
+import { useStore } from 'react-hookstore';
 
 const StyledMenu = withStyles({
   paper: {
@@ -31,21 +33,16 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles(theme => ({
-  root: {
-    /*
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: theme.palette.common.white,
-      },
-    },
-    */
-  },
-}))(MenuItem);
-
 export default function AccountButton() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [auth, setAuth] = useStore('authStore');
+  const history = useHistory();
+
+  const handleLogout = event => {
+    setAuth(false);
+    localStorage.clear();
+    history.push("/")
+  };
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -58,14 +55,14 @@ export default function AccountButton() {
   return (
     <div>
       <IconButton
-          edge="end"
-          aria-label="account of current user"
-          aria-haspopup="true"
-          color="inherit"
-          onClick={handleClick}
-        >
-          <AccountCircle />
-        </IconButton>
+        edge="end"
+        aria-label="account of current user"
+        aria-haspopup="true"
+        color="inherit"
+        onClick={handleClick}
+      >
+        <AccountCircle />
+      </IconButton>
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
@@ -73,24 +70,19 @@ export default function AccountButton() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
+        <MenuItem onClick={handleClose} component={Link} to="/settings">
           <ListItemIcon>
-            <SendIcon fontSize="small" />
+            <SettingsIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Sent mail" />
-        </StyledMenuItem>
-        <StyledMenuItem>
+          <ListItemText primary="Settings" />
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <DraftsIcon fontSize="small" />
+            <ExitToAppIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <InboxIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </StyledMenuItem>
+          <ListItemText primary="Log Out" />
+        </MenuItem>
       </StyledMenu>
     </div>
   );
