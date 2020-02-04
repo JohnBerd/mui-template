@@ -68,7 +68,6 @@ export default function SignIn(props) {
                     variant="standard"
                     required
                     fullWidth
-                    autoFocus
                     id="email"
                     label="Email"
                     name="email"

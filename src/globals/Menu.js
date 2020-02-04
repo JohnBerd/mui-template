@@ -1,6 +1,5 @@
 import Home from "../components/Pages/Home";
 import Demo from "../components/Pages/Demo";
-import PrivatePage from "../components/Pages/Settings";
 import UserSettings from "../components/Pages/UserSettings";
 
 const menu = [

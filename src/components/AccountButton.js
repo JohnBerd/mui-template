@@ -1,17 +1,15 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Divider, IconButton } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import { IconButton, Divider } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Link, useHistory } from 'react-router-dom'
+import SettingsIcon from '@material-ui/icons/Settings';
+import React from 'react';
 import { useStore } from 'react-hookstore';
+import { Link, useHistory } from 'react-router-dom';
 
 const StyledMenu = withStyles({
   paper: {

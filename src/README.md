@@ -8,6 +8,8 @@ Thanks to it, you will be able to:
 
 - Create new menu items in one line of code
 - Change global colors of the application
+- Easily add a search input within the Navbar
+- Easily make the navbar sticky
 
 Why do you need this template?
 - Front-end form checking for sign in and sign up is already implemented
@@ -92,3 +94,7 @@ opacity turns you image darker, it should be a value between 0 and 1
 #### Limitations
 
 Too many items can generate a display conflict with the search field on small screens
+
+### Form Checking
+
+Front-end form checking is already coded, it uses [React Hook Form]('https://react-hook-form.com/')

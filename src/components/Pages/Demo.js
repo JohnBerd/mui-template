@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import Page from '../Page'
-import { Switch, Paper, FormControlLabel, Button, createMuiTheme, TextField, Grid, Typography, Container, Box } from '@material-ui/core';
-import { useStore } from 'react-hookstore';
-import ColorPicker from 'material-ui-color-picker'
+import { Box, Button, createMuiTheme, FormControlLabel, Grid, Paper, Switch, TextField, Typography } from '@material-ui/core';
+import ColorPicker from 'material-ui-color-picker';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useStore } from 'react-hookstore';
+import Page from '../Page';
 import Home from './Home';
 
 

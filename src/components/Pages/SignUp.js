@@ -38,7 +38,9 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp() {
   const classes = useStyles();
   const [setOn, setStatusBase] = useState('');
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, watch, errors } = useForm({
+    mode: "onBlur"
+  });
   const onSubmit = data => {
     // Link to the API
   }

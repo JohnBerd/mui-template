@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Page from '../Page'
-import ReactMarkdown from 'react-markdown'
-import { Paper, Card, Container } from '@material-ui/core';
+import { Card, Container } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import CodeBlock from '../CodeBlock';
+import Page from '../Page';
 
 
 

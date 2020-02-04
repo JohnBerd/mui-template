@@ -13,6 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from "@material-ui/icons/Search";
 import AccountButton from './AccountButton';
 import NotificationButton from './NotificationButton';
+import { useForm } from 'react-hook-form';
 
 
 
@@ -82,6 +83,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
@@ -95,6 +97,33 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+
+
+function SearchField() {
+  const { register, handleSubmit, watch, errors } = useForm();
+  const classes = useStyles();
+  const onSubmit = data => {
+    // Link to the API
+  }
+
+  return (
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} >
+        <InputBase
+          placeholder="Search…"
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </form>
+    </div>
+  );
+}
 
 function SearchNavBar(props) {
   const classes = useStyles();
@@ -112,25 +141,6 @@ function SearchNavBar(props) {
         <SearchField />
       </Toolbar>
     </ClickAwayListener>
-  );
-}
-
-function SearchField() {
-  const classes = useStyles();
-  return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
-      </div>
-      <InputBase
-        placeholder="Search…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ 'aria-label': 'search' }}
-      />
-    </div>
   );
 }
 
