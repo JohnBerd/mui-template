@@ -12,7 +12,7 @@ createStore('themeStore', theme); // for the demo
 createStore('pageStore', menu); // for the demo
 createStore('stickyStore', false); // for the demo
 createStore('searchStore', false); // for the demo
-createStore('authStore', false);
+createStore('authStore', localStorage.getItem('isLoggedIn'));
 
 
 function App() {
