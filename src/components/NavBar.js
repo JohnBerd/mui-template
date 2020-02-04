@@ -8,7 +8,6 @@ import { Button, IconButton, ClickAwayListener, Box, InputBase } from '@material
 import { Link } from "react-router-dom";
 import menu from "../globals/Menu"
 import { useStore } from 'react-hookstore';
-import SearchBar from 'material-ui-search-bar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from "@material-ui/icons/Search";
 import AccountButton from './AccountButton';
@@ -36,9 +35,6 @@ const useStyles = makeStyles(theme => ({
   },
   signInButton: {
     margin: theme.spacing(1),
-  },
-  inputRoot: {
-    color: 'inherit',
   },
   sectionDesktop: {
     display: 'none',
@@ -100,7 +96,7 @@ const useStyles = makeStyles(theme => ({
 
 
 function SearchField() {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { handleSubmit } = useForm();
   const classes = useStyles();
   const onSubmit = data => {
     // Link to the API
@@ -144,14 +140,7 @@ function SearchNavBar(props) {
   );
 }
 
-function AuthMenuBar(props) {
-  const classes = useStyles();
-  const handleClick = () => {
-    // Link to the API
-    props.setAuth(false)
-    localStorage.clear()
-  }
-
+function AuthMenuBar() {
   return (
     <div style={{ display: 'flex' }}>
       <NotificationButton />
@@ -208,7 +197,6 @@ function BaseNavBar(props) {
 }
 
 export default function NavBar(props) {
-  const classes = useStyles();
   const [searchActive, setSearchActive] = useState(false)
   return (
     <div>

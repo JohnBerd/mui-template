@@ -116,7 +116,7 @@ function PageDemo() {
     const [checked, setChecked] = useState(true);
     const [auth, setAuth] = useStore('authStore');
     const [pages, setPages] = useStore('pageStore');
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, errors } = useForm();
     const handleChange = event => {
         setChecked(event.target.checked);
     };

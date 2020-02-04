@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Card, CardContent, withStyles, InputAdornment } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Face } from '@material-ui/icons'
@@ -20,7 +20,6 @@ import { useStore } from 'react-hookstore';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
     margin: 'auto',
   },
@@ -38,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn(props) {
   const classes = useStyles();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [ auth, setAuth ] = useStore('authStore');
   const onSubmit = data => {
     // Link to the API
@@ -47,7 +46,7 @@ export default function SignIn(props) {
   useEffect(() => {
     console.log(auth)
   });
-  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
   return (
     <Page center background>
     <div>

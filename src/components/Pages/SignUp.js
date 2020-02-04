@@ -1,10 +1,7 @@
-import React,{ useState} from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -22,7 +19,6 @@ import Page from '../Page';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
     margin: 'auto',
   },
@@ -37,14 +33,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const [setOn, setStatusBase] = useState('');
   const { register, handleSubmit, watch, errors } = useForm({
     mode: "onBlur"
   });
   const onSubmit = data => {
     // Link to the API
   }
-  const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
   return (
     <Page center background>
@@ -91,7 +86,6 @@ export default function SignUp() {
                       fullWidth
                       label="Last Name"
                       name="lastname"
-                      inputRef={register({ required: true })}
                       helperText={errors.lastname ? errors.lastname.message : ''}
                       error={errors.lastname}
                       inputRef={register({

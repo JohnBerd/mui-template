@@ -1,3 +1,4 @@
+import React from 'react';
 import { Divider, IconButton } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,7 +8,6 @@ import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
-import React from 'react';
 import { useStore } from 'react-hookstore';
 import { Link, useHistory } from 'react-router-dom';
 

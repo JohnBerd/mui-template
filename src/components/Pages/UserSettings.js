@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, ButtonBase, ClickAwayListener, Grid, Paper, TextField } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,7 +21,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FaceIcon from '@material-ui/icons/Face';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useStore } from 'react-hookstore';
 import { useHistory } from 'react-router-dom';
@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
 
 function FirstnameForm() {
     const classes = useStyles();
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, errors } = useForm();
 
     const changeFirstname = data => {
         // Link to the API
@@ -97,7 +97,7 @@ function FirstnameForm() {
 
 function LastnameForm() {
     const classes = useStyles();
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, errors } = useForm();
 
     const changeLastname = data => {
         // Link to the API
@@ -126,8 +126,8 @@ function LastnameForm() {
 
 function EmailForm() {
     const classes = useStyles();
-    const { register, handleSubmit, watch, errors } = useForm();
-    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const { register, handleSubmit, errors } = useForm();
+    const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
 
     const changeEmail = data => {
@@ -160,7 +160,7 @@ function EmailForm() {
 
 function PasswordForm() {
     const classes = useStyles();
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, errors } = useForm();
 
     const changePassword = data => {
         // Link to the API
@@ -211,11 +211,10 @@ function PasswordForm() {
 
 export default function UserSettings(props) {
     const classes = useStyles();
-    const { register, handleSubmit, watch, errors } = useForm();
     const [auth, setAuth] = useStore('authStore');
     const history = useHistory()
 
-    const deleteAccount = data => {
+    const deleteAccount = () => {
         // Link to the API
         alert("Account Deleted")
         setAuth(false)
