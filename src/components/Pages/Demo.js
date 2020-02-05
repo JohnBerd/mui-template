@@ -75,11 +75,10 @@ function ColorDemo(props) {
     }
 
     return (
-        <Box p={3}>
+        <Box p={3}  style={{maxWidth: 310}}>
             <Typography component="h4" variant="h4" color="primary" >Theme</Typography>
             <Box m={2}>
                 <ColorPicker
-                    style={{ paddingRight: '15px' }}
                     variant="outlined"
                     name='pcolor'
                     label='Primary Color'
@@ -89,7 +88,6 @@ function ColorDemo(props) {
             </Box>
             <Box m={2}>
                 <ColorPicker
-                    style={{ paddingRight: '15px' }}
                     variant="outlined"
                     name='scolor'
                     label='Secondary Color'
@@ -99,7 +97,6 @@ function ColorDemo(props) {
             </Box>
             <Box m={2}>
                 <ColorPicker
-                    style={{ paddingRight: '15px' }}
                     variant="outlined"
                     name='bcolor'
                     label='Background Color'
@@ -136,12 +133,11 @@ function PageDemo() {
     }
 
     return (
-        <Box p={3}>
-            <Grid item xs={3}>
+        <Box p={3} style={{maxWidth: 310}}>
                 <Typography component="h4" variant="h4" color="primary" >Menu</Typography>
                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                    <Box m={2}>
                     <TextField
-                        margin="normal"
                         variant="outlined"
                         required
                         fullWidth
@@ -157,8 +153,9 @@ function PageDemo() {
                         })}
                         helperText={errors.title ? errors.title.message : ''}
                     />
+                    </Box>
+                    <Box m={2}>
                     <TextField
-                        margin="normal"
                         variant="outlined"
                         label="Route Path"
                         required
@@ -174,12 +171,16 @@ function PageDemo() {
                         })}
                         helperText={errors.route ? errors.route.message : ''}
                     />
+                    </Box>
+                    <Box m={2}>
                     <FormControlLabel
                         control={
                             <Switch checked={checked} onChange={handleChange} color="primary" />
                         }
                         label="Public Route"
                     />
+                    </Box>
+                    <Box  m={2}>
                     <Button
                         type="submit"
                         fullWidth
@@ -188,8 +189,8 @@ function PageDemo() {
                     >
                         Add A Page
               </Button>
+              </Box>
                 </form>
-            </Grid>
         </Box>
     )
 }

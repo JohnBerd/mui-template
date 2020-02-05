@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, IconButton, Box } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from 'react-router-dom';
+import landscape from '../landscape.png'
 
 const useStyles = makeStyles(theme => ({
     mainCenter: {
@@ -49,7 +50,7 @@ function BackgroundImage(props) {
 
 BackgroundImage.defaultProps = {
     opacity: 1,
-    src: 'https://www.pngkey.com/png/full/65-658026_landscape-euclidean-vector-mountain-range-vector-png.png',
+    src: landscape,
     blur: '0px'
 }
 

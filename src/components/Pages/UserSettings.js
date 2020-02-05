@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
         flexShrink: 0,
         fontWeight: theme.typography.fontWeightBold,
         paddingLeft: theme.spacing(1),
@@ -90,7 +89,6 @@ function FirstnameForm() {
                 })}
                 helperText={errors.firstname ? errors.firstname.message : ''}
             />
-            <Button color="primary" variant="contained" className={classes.submit} type="submit">Submit</Button>
         </form>
     )
 }
@@ -119,7 +117,6 @@ function LastnameForm() {
                 })}
                 helperText={errors.lastname ? errors.lastname.message : ''}
             />
-            <Button color="primary" variant="contained" className={classes.submit} type="submit">Submit</Button>
         </form>
     )
 }
@@ -153,7 +150,6 @@ function EmailForm() {
                     },
                 })}
                 helperText={errors.email ? errors.email.message : ''} />
-            <Button color="primary" variant="contained" className={classes.submit} type="submit">Submit</Button>
         </form>
     )
 }
